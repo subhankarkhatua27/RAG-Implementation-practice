@@ -74,10 +74,38 @@ with engine.raw_connection() as conn:
     
     conn.commit()
         
-print(rows)           
+retrieved_data = []
+for row in rows:
+    content = row[0]
+    retrieved_data.append(content)
+    
+question = "what are my details?"
+
+context = "\n\n".join(retrieved_data)
+prompt = f"""Answer the question using ONLY the provided context.
+If the answer is not in the context, say exactly:
+'I cannot find this information in the provided documents.'
+Do not use any knowledge outside the provided context.
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""           
             
-                       
-                                  
+#response = client.models.generate_content(
+    #model= "gemini-2.5-flash",
+    #contents = prompt
+#)
+#print(response.text)                       
+
+
+chat = client.chats.create(model = "gemini-2.5-flash")
+response = chat.send_message(prompt)
+
+print(response.text)
+
                                   
     
     
