@@ -1,7 +1,8 @@
-from pdf_extracter import full_text
 
 
-def chunk_text(full_text, chunk_size=100, overlap = 50):
+
+
+def chunk_text(full_text:str, chunk_size=100, overlap = 50):
     chunks = []
     start = 0
     while start < len(full_text):
@@ -13,6 +14,3 @@ def chunk_text(full_text, chunk_size=100, overlap = 50):
     return chunks
 
 
-chunks = chunk_text(full_text)
-print(f"No of chunks created: {len(chunks)}")
-print(f"first chunk: {chunks[0]}")

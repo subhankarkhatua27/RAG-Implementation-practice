@@ -1,8 +1,9 @@
 import pdfplumber
 
-with pdfplumber.open("Cover_Letter.pdf") as pdf:
-    full_text = ""
-    for page in pdf.pages:
-        full_text += page.extract_text() + "\n"
-        
-print(full_text[:1000])
+def pdf_extracter(pdf:str):
+    with pdfplumber.open(pdf) as pdffile:
+        full_text = ""
+        for page in pdffile.pages:
+            full_text += (page.extract_text() or "") + "\n"
+    
+    return full_text    
